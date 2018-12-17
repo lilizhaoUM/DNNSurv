@@ -3,8 +3,10 @@
 # get pseudo conditional survival probabilities 
 # time is the survival time
 # delta is the censoring indicator
-# weight is the weight matrix for the IPCW pseudo probabilities. For non-IPCW method, set weight=1
+# weight is the weight matrix for the IPCW pseudo probabilities. To compute non-IPCW pseduo values, set weight=1
 # tau is a vector of time points that are used to divide the time interval
+# output conditional_pseudost is a matrix of pseudo conditional survival probabilities with rows 
+# equal to the nunmber of subjects and columns equal to the number of time points
 #-------------------------------------------------------------------------------------------------
 getPseudoConditional<-function(time,delta,weight,tau){
   
