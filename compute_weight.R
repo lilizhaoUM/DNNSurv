@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------------------
-# -compute weights using Cox regression for the ipcw method (which is 1/censoring probability)
+# -compute weights using Cox regression for the ipcw pseudo appraoch 
 # -output is n*ns matrix: n is the number of subjects and ns is the number of unique event times
 #--------------------------------------------------------------------------------------------------
 compute_weight<- function(time,delta,cov){
