@@ -59,8 +59,7 @@ getPseudoConditional<-function(time,delta,weight,tau){
   condpseudosurv <- as.matrix(con_pseudo_survprob[order(pseudo$id),])	
   
   # obtain at risk rows
-  dd=cbind.data.frame(id=rep(1:n,ntau),s=rep(s.tau,each=n),t=rep(time,ntau),pseudost=c(condpseudosurv))
-  
+  dd=cbind.data.frame(id=rep(1:n,ntau),s=rep(s.tau,each=n),t=rep(time,ntau),pseudost=c(condpseudosurv))  
   dd=dd[dd$t>dd$s,]
   return(dd)
 }
