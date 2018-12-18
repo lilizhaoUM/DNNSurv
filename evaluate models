@@ -1,0 +1,68 @@
+#----------------------------------------------------------------------------
+# ypred is risk probabilities from the prediction model
+# surv_train is the survival time in training data
+# cen_train is the censoring indicator in training data
+# pickTime is the time points used to divivide the time intervals
+# surv_test is the survival time in test data
+# cen_test is the censoring indicator in test data
+#----------------------------------------------------------------------------
+evaluateCondPseudo <- function(ypred, surv_train, cen_train, pickTime,
+                               surv_test, cen_test){
+  
+  measures.all <- matrix(0, length(pickTime), 4)
+  for(i in 1:length(pickTime)){
+    measures.all[i,] <- unlist(evaluate(surv_train, cen_train, ypred[,i], 
+                                        surv_test, cen_test, pickTime[i]))
+  }
+  measures.all
+}
+#----------------------------------------------------------------------------
+# evaluate the performance of survival prediction using different metrics
+# ypred is a risk probability
+# pt is the time points
+#----------------------------------------------------------------------------
+evaluate <-function(surv_train, cen_train, ypred,
+                    surv_test, cen_test, pt){
+  c_index <- concordance.index(x=ypred, surv.time=surv_test,
+                               surv.event=cen_test, method="noether")$c.index
+  
+  auc <- survivalROC.C(Stime = surv_test,
+                       status = cen_test,
+                       marker =  ypred,
+                       predict.time = pt)$AUC
+  
+  surv.rsp <- Surv(surv_train, cen_train)
+  surv.rsp.new <- Surv(surv_test, cen_test)
+  unoc <- UnoC(surv.rsp, surv.rsp.new, ypred)
+  
+  brier <- BrierScore(surv_test, cen_test, pt, 1-ypred, type = "kaplan")
+  
+  list(c_index=c_index, unoc=unoc, auc=auc, brier=brier)
+
+}
+
+#----------------------------------------------------------------------------
+# calcute censoring distribution
+#----------------------------------------------------------------------------
+Ghat.FUN <- function(time, status,  new.time, type = "kaplan"){
+  ranked.new.time <- rank(new.time)
+  summary(survfit(Surv(time, status) ~ 1, se.fit = FALSE, type = type), sort(new.time))$surv[ranked.new.time]
+}
+
+#----------------------------------------------------------------------------
+# calcuate the Brier score using time, status, survprob from the prediction model
+#----------------------------------------------------------------------------
+BrierScore <- function(time, status, tau, survprob, type = "kaplan"){
+  
+  # remove sub who is censored before tau
+  rm <- (1-status)*(time < tau) 
+  sub.time=time[!rm]  
+  sub.status=status[!rm]
+  sub.survprob=survprob[!rm]
+  numerator   <- (sub.survprob)^2*sub.status * (sub.time <= tau) + (1-sub.survprob)^2*(sub.time >= tau)
+  min.time    <- pmin(sub.time, tau)
+  denominator <- Ghat.FUN(time, 1 - status, min.time, type = type)
+  result      <- numerator/denominator
+  result[is.na(result)] <- 0
+  return(mean(result))
+}
