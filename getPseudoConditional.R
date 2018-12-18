@@ -56,8 +56,11 @@ getPseudoConditional<-function(time,delta,weight,tau){
   con_pseudo_survprob=nr.mat*con.surv.all.mat-(nr.mat-1)*con.IPCW_survi.teval
   
   # back to original order
-  out <- NULL
-  out$tau <- tau
-  out$conditional_pseudost <- as.matrix(con_pseudo_survprob[order(pseudo$id),])		#back to original order
-  return(out)
+  condpseudosurv <- as.matrix(con_pseudo_survprob[order(pseudo$id),])	
+  
+  # obtain at risk rows
+  dd=cbind.data.frame(id=rep(1:n,ntau),s=rep(s.tau,each=n),t=rep(time,ntau),pseudost=c(condpseudosurv))
+  
+  dd=dd[dd$t>dd$s,]
+  return(dd)
 }
