@@ -1,3 +1,12 @@
+rm(list=ls())
+library(keras)
+install_keras()
+library(pseudo)
+library(survivalROC)
+library(survival)
+library(survcomp)
+library(survAUC)
+
 # simulate survival data from a cov model with one covariate 
 # the censoring distribution depends on the covariate
 
