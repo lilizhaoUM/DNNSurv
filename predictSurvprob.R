@@ -1,6 +1,11 @@
 #----------------------------------------------------------------------------
-# It trains the data in training dataset using keras and predict the data in test dataset
-# the output is marinal survival probabilities at pickTime
+# It trains the data in training dataset and 
+# predicts marinal survival probabilities at pickTime for subjects in test dataset
+# surv_train is survival time in training data
+# cen_train is censoring indicator in training data
+# weight is the weight in computing the pseudo probabilities 
+# x_train is the covariate values in training dataset
+# x_test is the covaraite values in test dataset
 #----------------------------------------------------------------------------
 predictSurvprob <- function(surv_train, cen_train, weight, pickTime, x_train, x_test){  
   
