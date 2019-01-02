@@ -7,7 +7,7 @@ library(survival)
 library(survcomp)
 library(survAUC)
 
-# simulate survival data from a cov model with one covariate 
+# simulate survival data from a cox model with one covariate 
 # the censoring distribution depends on the covariate
 
 set.seed(2412)
