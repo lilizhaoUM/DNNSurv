@@ -42,8 +42,8 @@ ypredw <- predictSurvprob(surv_train, cen_train, weight=1, pickTime, xs_train, x
 evaluateCondPseudo(1-ypredw, surv_train, cen_train, pickTime, surv_test, cen_test)
 
 
-# IPCW calculation
+# IPCW method
 weight=compute_weight(surv_train,cen_train,x_train)
 ypredw <- predictSurvprob(surv_train, cen_train, weight=weight, pickTime, xs_train, xs_test) 
 
-evaluateCondPseudo(1-ypredw, surv_train, cen_train, pickTime, surv_test, cen_test)
+
