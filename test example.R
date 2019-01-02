@@ -35,10 +35,10 @@ surv_test <- time[(n/2+1):n]
 cen_test =delta[(n/2+1):n]
 xs_test<- scale(x_test, center = mean, scale = std)
 
-# get the risk probability for each pickTime
+# obtain the risk probability for each pickTime
 ypredw <- predictSurvprob(surv_train, cen_train, weight=1, pickTime, xs_train, xs_test) 
 
-# obtain the c-index and Brier score
+# obtain the c-index (first column) and Brier score (last column)
 evaluateCondPseudo(1-ypredw, surv_train, cen_train, pickTime, surv_test, cen_test)
 
 
