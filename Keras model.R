@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-# A two-layer deep neural network model implemented in keras
+# A two-layer deep neural network model implemented in keras with default hyperparameters 
 # hyper-parameters in this model worked very well in simulation studies in the paper
 #----------------------------------------------------------------------------
 pseudoDNN.train <- function(x_train, y_train){
