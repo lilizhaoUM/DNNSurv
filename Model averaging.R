@@ -33,8 +33,6 @@ tuneCondPseudoCindexCV <- function(x_train, surv_train, cen_train, weight, pickT
                            tuneParas[,5]==0.0025)
   pick.tune <- c(pick.tune, pick.tune.new)
   
-  #pick.tune.para <- c(8, 4, 0.0001, 0.01, 0.0025)
-  
   pick.tune.new <- sample((1:nrow(tuneParas))[-pick.tune], 4)
   pick.tune <- c(pick.tune, pick.tune.new)
   
@@ -145,8 +143,6 @@ tuneCondPseudoCindexCV <- function(x_train, surv_train, cen_train, weight, pickT
 predictCondPseudoTune <- function(surv_train, cen_train, weight, pickTime,
                               x_train, x_test, cov.cen, paras){
   
-    
-    #weight=compute_weight(surv_train,cen_train,cov.cen)
     pseudoCond  = getPseudoConditional(surv_train, cen_train, weight=weight, pickTime)
     
     x_train.all <- x_train[pseudoCond$id,]
