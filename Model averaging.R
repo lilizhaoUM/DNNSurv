@@ -1,4 +1,8 @@
-#1. tune parameters based on c index using cv
+#===================================================================================================
+# tuneCondPseudoCindexCV function tune parameters based on c index using five-fold cv.
+# It selects five best sets of hyperparameters to train the model five times, output five models. 
+#===================================================================================================
+
 tuneCondPseudoCindexCV <- function(x_train, surv_train, cen_train, weight, pickTim, 
                                    tuneParas, tolerance=0.0001, maxit=20){
   
@@ -138,8 +142,10 @@ tuneCondPseudoCindexCV <- function(x_train, surv_train, cen_train, weight, pickT
 }
 
 
-#===========================================================================
-# predict the risk
+#===========================================================================================
+# predictCondPseudoTune function estimates the survival 
+# probability by averaging the survival probabilities from the five models.
+#===========================================================================================                           
 predictCondPseudoTune <- function(surv_train, cen_train, weight, pickTime,
                               x_train, x_test, cov.cen, paras){
   
