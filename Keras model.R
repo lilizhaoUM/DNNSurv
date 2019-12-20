@@ -45,7 +45,7 @@ pseudoDNN.train <- function(x_train, y_train){
 }
 
 #----------------------------------------------------------------------------
-#prediction based on the two-layer keras model
+#prediction based on a keras model
 #----------------------------------------------------------------------------
 pseudoDNN.predict <- function(model, x_test){
   ypred <- model %>% predict(x_test)
