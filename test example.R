@@ -65,4 +65,5 @@ ypred.con <- matrix(ypred.con, nrow=nrow(x_test))
 ypred <- lapply(1:length(s), function(i) apply(ypred.con[,1:i, drop=FALSE], 1, prod))
 surv_prob <- Reduce(cbind, ypred)
 
-
+# c-index at time 0.7
+concordance.index(x=1-surv_prob[,2], surv.time=surv_test, surv.event=cen_test, method="noether")$c.index
