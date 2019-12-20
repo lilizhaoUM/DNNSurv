@@ -1,5 +1,11 @@
+#--------------------------------------------------------------------------------------
+# There are two example neural network models used in the paper.
+# You should tunning the hyperparamters to find the best neural network for your own study.
+#-------------------------------------------------------------------------------------------
+
+
 #----------------------------------------------------------------------------------------
-# Example of a neural network with two hidden layer implemented in R keras in the paper
+# Example of a neural network with two hidden layers implemented in R keras in the paper
 #-----------------------------------------------------------------------------------------
 pseudoDNN.train <- function(x_train, y_train){
   
