@@ -29,7 +29,7 @@ pseudoDNN.train <- function(x_train, y_train){
   # use selu instead of relu for some studies
   model <- keras_model_sequential() %>%
     layer_dense(units=16,  activation = "selu",bias_initializer = initializer_constant(0.0),
-                input_shape = dim(x_train.all)[[2]]) %>%
+                input_shape = dim(x_train)[[2]]) %>%
     layer_dropout(rate = 0.2) %>%
     layer_dense(units = 1, activation='sigmoid')
   
