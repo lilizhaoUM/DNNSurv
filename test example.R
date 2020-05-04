@@ -53,7 +53,7 @@ model = pseudoDNN.train(x_train.all, y_train.all)
 
 # format the test data 
 x_test.all=do.call(rbind, replicate(length(pickTime), x_test, simplify=FALSE))
-s_test=rep(s,each=nrow(x_test))
+s_test=rep(pickTime,each=nrow(x_test))
 smatrix.test=model.matrix(~as.factor(s_test)+0)
 x_test.all=cbind(x_test.all,smatrix.test)
 
